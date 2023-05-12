@@ -30,12 +30,12 @@ using namespace cv;
 
 void RotImg(char* inpath, char* outpath, int angle)
 {
-	Mat img = imread(inpath);
+	Mat img = wimread(inpath);
 	if (img.size == 0) {
 		return;
 	}
 	rotate(img, img, angle);
-	imwrite(outpath, img);
+	wimwrite(outpath, img);
 }Mat wimread(char* inpath) {
 	setlocale(LC_ALL, "japanese");
 	int size = ::MultiByteToWideChar(CP_UTF8, 0, inpath, -1, (wchar_t*)NULL, 0);
