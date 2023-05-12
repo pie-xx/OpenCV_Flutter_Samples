@@ -36,7 +36,9 @@ void RotImg(char* inpath, char* outpath, int angle)
 	}
 	rotate(img, img, angle);
 	wimwrite(outpath, img);
-}Mat wimread(char* inpath) {
+}
+
+Mat wimread(char* inpath) {
 	setlocale(LC_ALL, "japanese");
 	int size = ::MultiByteToWideChar(CP_UTF8, 0, inpath, -1, (wchar_t*)NULL, 0);
 	wchar_t* winpath = (wchar_t*)new wchar_t[size];
@@ -58,7 +60,9 @@ void RotImg(char* inpath, char* outpath, int angle)
 
 	delete[] buff;
 	return img;
-}void wimwrite(char* outpath, Mat img) {
+}
+
+void wimwrite(char* outpath, Mat img) {
 	setlocale(LC_ALL, "japanese");
 	std::vector<uchar> buff2; //buffer for coding
 	std::vector<int> param = std::vector<int>(2);
