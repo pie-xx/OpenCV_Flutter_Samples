@@ -28,6 +28,9 @@
 using namespace cv;
 #include "rot.h"
 
+Mat wimread(char* inpath);
+void wimwrite(char* outpath, Mat img);
+
 void RotImg(char* inpath, char* outpath, int angle)
 {
 	Mat img = wimread(inpath);
