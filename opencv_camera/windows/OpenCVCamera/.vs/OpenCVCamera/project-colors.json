@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "0db37fa5-001a-49d3-a01a-9a0723e1bc70": {
+      "ProjectGuid": "0db37fa5-001a-49d3-a01a-9a0723e1bc70",
+      "DisplayName": "OpenCVCamera",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
