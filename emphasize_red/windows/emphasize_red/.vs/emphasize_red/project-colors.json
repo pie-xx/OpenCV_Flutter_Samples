@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "63390c8a-eaef-4927-bbb5-e1d35cd4b5ba": {
+      "ProjectGuid": "63390c8a-eaef-4927-bbb5-e1d35cd4b5ba",
+      "DisplayName": "emphasize_red",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
