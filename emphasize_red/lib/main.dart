@@ -22,7 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Image? img1;
 
   late String _outpath;
-  late String _tmppath;
   late DynamicLibrary  dylib ;
   late Function emphasize_red;
   int mode = 0;
@@ -51,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.didChangeDependencies();
     final directory = await getTemporaryDirectory();
     _outpath = "${directory.path}/output.jpg";
-    _tmppath = "${directory.path}/tmp.jpg";
   }
 
   void _loadImage() async {
