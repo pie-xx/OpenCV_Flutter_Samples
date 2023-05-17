@@ -1,6 +1,6 @@
 # image_batch
 
-<img src="../pic/image_batch02.png" width=320/>
+<img src="../pic/image_batch02.png" width=480/>
 
 指定されたディレクトリ内の画像ファイルをそれぞれOpenCVで回転させて、指定されたディレクトリに格納します。
 

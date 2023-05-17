@@ -1,16 +1,6 @@
 # emphasize_red
 
-A new Flutter project.
+<img src="../pic/emphasize_red.png" width=480/>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+選択された画像の赤文字部分を膨張させます。。テストに使った画像は、橋本純次著「チャート式数学Ⅲ」1959年数研
+出版刊 から引⽤しました。
