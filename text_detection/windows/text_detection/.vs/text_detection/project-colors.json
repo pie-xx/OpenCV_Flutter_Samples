@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "456bbbef-c0fb-47a6-ba9e-77e622b69b52": {
+      "ProjectGuid": "456bbbef-c0fb-47a6-ba9e-77e622b69b52",
+      "DisplayName": "text_detection",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
