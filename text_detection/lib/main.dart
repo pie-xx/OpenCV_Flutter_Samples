@@ -3,12 +3,15 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ffi';
 
-import 'package:flutter/services.dart';
 import 'package:ffi/ffi.dart';
+import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';  // 追加プラグインの指定
 import 'package:path_provider/path_provider.dart';
 void main() {
-  runApp(const MaterialApp( home: MyHomePage(), ));
+  runApp(const MaterialApp( 
+    home: MyHomePage(),
+    debugShowCheckedModeBanner: false, 
+    ));
 }
 
 class MyHomePage extends StatefulWidget {
@@ -89,11 +92,42 @@ class _MyHomePageState extends State<MyHomePage> {
     results[0] = max_result;
     text_detection( inpath.toNativeUtf8(), outpath.toNativeUtf8(), 
                       modelpath.toNativeUtf8(), results);
+    if(results[0]==0){
+      return;
+    }
     inpath = outpath;
     print("results=${results[0]}");
+    int maxX, minX, maxY, minY;
+    maxX = 0; maxY = 0;
+    minX = results[1];
+    minY = results[2];
     for( int n=0; n < results[0]; ++n){
       print("$n(${results[n*8+1]},${results[n*8+2]})(${results[n*8+3]},${results[n*8+4]})(${results[n*8+5]},${results[n*8+6]})(${results[n*8+7]},${results[n*8+8]})");
+      for( int m=0; m < 8; m=m+2 ){
+        if( maxX < results[n*8+m+1]){
+          maxX = results[n*8+m+1];
+        }
+        if( maxY < results[n*8+m+2]){
+          maxY = results[n*8+m+2];
+        }
+        if( minX > results[n*8+m+1]){
+          minX = results[n*8+m+1];
+        }
+        if( minY > results[n*8+m+2]){
+          minY = results[n*8+m+2];
+        }
+      }
     }
+    results[0]=1;
+    results[1]=minX;
+    results[2]=minY;
+    results[3]=minX;
+    results[4]=maxY;
+    results[5]=maxX;
+    results[6]=maxY;
+    results[7]=maxX;
+    results[8]=minY;
+    drawarea( inpath.toNativeUtf8(), outpath.toNativeUtf8(), results);
 
     Uint8List  imageData = File(outpath).readAsBytesSync();
     img = Image.memory( imageData ); 
@@ -142,7 +176,6 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.blue,
         title: Text(imagefile),
         actions: [         // ここに並べたボタンWidgetがAppBarに並ぶ
-          IconButton(onPressed: drawImage, icon: const Icon(Icons.text_fields)),
           IconButton(onPressed: detectImage, icon: const Icon(Icons.search)),
           IconButton(onPressed: rotateImage, icon: const Icon(Icons.rotate_right)),
           IconButton(onPressed: loadImage, icon: const Icon(Icons.image)),
@@ -157,6 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
       ),
-    ));
+    ),
+    );
   }
 }
