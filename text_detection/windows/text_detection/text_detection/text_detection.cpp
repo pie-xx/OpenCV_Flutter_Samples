@@ -68,7 +68,13 @@ void text_detection(char* inpath, char* outpath, char* modelpath, int* rtn_resul
 
 	std::vector<std::vector<cv::Point>> results;
 	std::vector<float> confidences;
-	model.detect(img, results, confidences);
+	try {
+		model.detect(img, results, confidences);
+	}
+	catch (...) {
+		rtn_result[0] = 0;
+		return;
+	}
 
 	// Loop over the results
 	for (int i = 0; i < results.size(); ++i) {
