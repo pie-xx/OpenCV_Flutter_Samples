@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:ffi';
@@ -48,7 +49,6 @@ class TransCmd {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   String srcdir = "";
   String dstdir = "";
 
@@ -92,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }catch(e){
       cmd.sendport?.send(e.toString());
     }
+
     cmd.sendport?.send("end");
   }
 
@@ -99,7 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
 isoTrans関数を新しいIsolateで実行し、画像変換処理を実行します。
 ReceivePortを使って、メインIsolateと新しいIsolate間の通信を行います。
 */
-  void trans(){
+  void trans() async {
+
+    var status = await Permission.storage.status;
+    if( status.isDenied ){
+      await Permission.storage.request();
+      return;
+    }
+
     final ReceivePort receivePort = ReceivePort();
 
     // 通信側からのコールバック

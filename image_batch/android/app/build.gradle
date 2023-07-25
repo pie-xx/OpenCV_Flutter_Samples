@@ -49,6 +49,7 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion
         //targetSdkVersion flutter.targetSdkVersion
+        // targetSdkVersionが30以上だと、ストレージ権限のリクエストが有効にならないので、29をセットする
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
