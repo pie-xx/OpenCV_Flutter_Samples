@@ -33,12 +33,14 @@ void wimwrite(char* outpath, Mat img);
 
 void RotImg(char* inpath, char* outpath, int angle)
 {
-	Mat img = wimread(inpath);
-	if (img.size == 0) {
-		return;
-	}
-	rotate(img, img, angle);
-	wimwrite(outpath, img);
+	try {
+		Mat img = wimread(inpath);
+		if (img.size == 0) {
+			return;
+		}
+		rotate(img, img, angle);
+		wimwrite(outpath, img);
+	}catch(...){}
 }
 
 Mat wimread(char* inpath) {
