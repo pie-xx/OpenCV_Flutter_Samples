@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     modelpath = "${tempDir.path}/DB.onnx";
 
     // assetsに格納したモデルを共有ライブラリが読めるようファイルに格納
-    ByteData data = await rootBundle.load("assets/DB_TD500_resnet18.onnx");
+    ByteData data = await rootBundle.load("assets/DB_IC15_resnet18.onnx");
     File tempFile = File(modelpath);
     await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
   }

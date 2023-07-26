@@ -23,7 +23,7 @@ void text_detection(char* inpath, char* outpath, char* modelpath, int* rtn_resul
 	// Post-processing parameters
 	float binThresh = 0.3;
 	float polyThresh = 0.5;
-	uint maxCandidates = 200;
+	uint maxCandidates = 1024;
 	double unclipRatio = 2.0;
 	model.setBinaryThreshold(binThresh)
 		.setPolygonThreshold(polyThresh)
