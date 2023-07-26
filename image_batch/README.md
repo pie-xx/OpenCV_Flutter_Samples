@@ -14,6 +14,6 @@ Androidのストレージまわりの権限の複雑さは、いいかげんに�
 
 1. android/app/src/main/AndroidManifest.xml のように権限のリクエストを追加
 2. android/app/build.gradle のようにtargetSdkVersionの値を29以下に指定
-3. 実行時にストレージ権限が要求されるので写真と動画に許可を指定
+3. 実行時にストレージ権限が要求されるので「写真、動画、音楽、音声」に許可を指定
 
 <img src="../pic/permission.png" width=320/>
