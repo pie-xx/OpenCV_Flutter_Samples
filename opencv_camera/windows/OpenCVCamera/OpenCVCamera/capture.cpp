@@ -30,8 +30,7 @@ void capture(char* outpath, int filno) {
         if (filno == 1) {
             cvtColor(frame, frame, COLOR_BGR2GRAY);
             // コントラストを強調する処理
-            adaptiveThreshold(frame, frame, 255, ADAPTIVE_THRESH_MEAN_C, 
-            THRESH_BINARY, 51, 20);
+            adaptiveThreshold(frame, frame, 255, ADAPTIVE_THRESH_MEAN_C,THRESH_BINARY, 51, 20);
         }
         imwrite(outpath, frame);
     }
