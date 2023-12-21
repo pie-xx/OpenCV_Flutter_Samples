@@ -49,8 +49,8 @@ void text_detection(char* inpath, char* outpath, char* modelpath, int* rtn_resul
 
 	// Loop over the results
 	for (int i = 0; i < results.size(); ++i) {
-		cv::polylines(img, results[i], true, cv::Scalar(0, 255, 0), 2);
-		cv::putText(img, std::to_string(i), results[i][0], cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(0, 255, 0));
+		//cv::polylines(img, results[i], true, cv::Scalar(0, 255, 0), 2);
+		//cv::putText(img, std::to_string(i), results[i][0], cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(0, 255, 0));
 		if (i < maxsize) {
 			std::cout << "i " << i << std::endl;
 			for (int n = 0; n < 4; ++n) {
@@ -64,21 +64,21 @@ void text_detection(char* inpath, char* outpath, char* modelpath, int* rtn_resul
 	imwrite(outpath, img);
 }
 
-void drawarea(char* inpath, char* outpath, int* rtn_result) {
+void drawarea(char* inpath, char* outpath, int* rtn_result, int* color) {
 	Mat img = imread(inpath);
 	if (img.size == 0) {
 		return;
 	}
 	int maxsize = rtn_result[0];
-
+	cv::Scalar drawColor = cv::Scalar(color[0],color[1],color[2]);
 	for (int i = 0; i < maxsize; ++i) {
 		std::vector<cv::Point> results(4);
 		for (int n = 0; n < 4; ++n) {
 			results[n].x = rtn_result[i * 8 + n * 2 + 1];
 			results[n].y = rtn_result[i * 8 + n * 2 + 2];
 		}
-		cv::polylines(img, results, true, cv::Scalar(255, 0, 0), 2);
-		cv::putText(img, std::to_string(i), results[0], cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 0, 0));
+		cv::polylines(img, results, true, drawColor, 2);
+		cv::putText(img, std::to_string(i), results[0], cv::FONT_HERSHEY_SIMPLEX, 1.0, drawColor);
 	}
 
 	imwrite(outpath, img);

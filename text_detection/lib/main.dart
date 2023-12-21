@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late Pointer<Int32> results;
   static const int max_result = 1024;
+  late Pointer<Int32> colors;
 
   @override
   void initState(){
@@ -49,14 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     results = malloc.allocate<Int32>(2*4*max_result+9);
+    colors = malloc.allocate<Int32>(3);
 
     text_detection = dylib.lookupFunction<
         Void Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Utf8>, Pointer<Int32> ),
         void Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Utf8>, Pointer<Int32> )
         >("text_detection");
     drawarea = dylib.lookupFunction<
-        Void Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Int32> ),
-        void Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Int32> )
+        Void Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Int32>, Pointer<Int32> ),
+        void Function(Pointer<Utf8>, Pointer<Utf8>, Pointer<Int32>, Pointer<Int32> )
         >("drawarea");    
     rotimage = dylib.lookupFunction<
         Void Function(Pointer<Utf8>, Pointer<Utf8>, Int32),
@@ -118,6 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       }
     }
+
+    colors[0]=255; colors[1]=0; colors[2]=0;
+    drawarea( inpath.toNativeUtf8(), outpath.toNativeUtf8(), results, colors);
+    
     results[0]=1;
     results[1]=minX;
     results[2]=minY;
@@ -127,7 +133,9 @@ class _MyHomePageState extends State<MyHomePage> {
     results[6]=maxY;
     results[7]=maxX;
     results[8]=minY;
-    drawarea( inpath.toNativeUtf8(), outpath.toNativeUtf8(), results);
+    
+    colors[0]=0; colors[1]=255; colors[2]=0;
+    drawarea( inpath.toNativeUtf8(), outpath.toNativeUtf8(), results, colors);
 
     Uint8List  imageData = File(outpath).readAsBytesSync();
     img = Image.memory( imageData ); 

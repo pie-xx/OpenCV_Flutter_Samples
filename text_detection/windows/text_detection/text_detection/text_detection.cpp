@@ -52,7 +52,8 @@ void text_detection(char* inpath, char* outpath, char* modelpath, int* rtn_resul
 	// Post-processing parameters
 	float binThresh = 0.3;
 	float polyThresh = 0.5;
-	uint maxCandidates = 200;
+	uint maxCandidates = 1024
+		;
 	double unclipRatio = 2.0;
 	model.setBinaryThreshold(binThresh)
 		.setPolygonThreshold(polyThresh)
@@ -78,8 +79,8 @@ void text_detection(char* inpath, char* outpath, char* modelpath, int* rtn_resul
 
 	// Loop over the results
 	for (int i = 0; i < results.size(); ++i) {
-		cv::polylines(img, results[i], true, cv::Scalar(0, 255, 0), 2);
-		cv::putText(img, std::to_string(i), results[i][0], cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(0, 255, 0));
+		//cv::polylines(img, results[i], true, cv::Scalar(0, 255, 0), 2);
+		//cv::putText(img, std::to_string(i), results[i][0], cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(0, 255, 0));
 		if (i < maxsize) {
 			std::cout << "i " << i << std::endl;
 			for (int n = 0; n < 4; ++n) {
@@ -93,12 +94,14 @@ void text_detection(char* inpath, char* outpath, char* modelpath, int* rtn_resul
 	wimwrite(outpath, img);
 }
 
-void drawarea(char* inpath, char* outpath, int* rtn_result) {
+void drawarea(char* inpath, char* outpath, int* rtn_result, int* color) {
 	Mat img = wimread(inpath);
 	if (img.size == 0) {
 		return;
 	}
 	int maxsize = rtn_result[0];
+
+	cv::Scalar drawColor = cv::Scalar(color[0],color[1],color[2]);
 
 	for (int i = 0; i < maxsize; ++i) {
 		std::vector<cv::Point> results(4);
@@ -106,8 +109,8 @@ void drawarea(char* inpath, char* outpath, int* rtn_result) {
 			results[n].x = rtn_result[i * 8 + n * 2 + 1];
 			results[n].y = rtn_result[i * 8 + n * 2 + 2];
 		}
-		cv::polylines(img, results, true, cv::Scalar(255, 0, 0), 2);
-		cv::putText(img, std::to_string(i), results[0], cv::FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 0, 0));
+		cv::polylines(img, results, true, drawColor, 2);
+		cv::putText(img, std::to_string(i), results[0], cv::FONT_HERSHEY_SIMPLEX, 1.0, drawColor);
 	}
 
 	wimwrite(outpath, img);
