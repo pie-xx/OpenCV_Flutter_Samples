@@ -8,6 +8,8 @@
 
 書籍はここで販売しています。
 
+|出版元|URL|
+|--|--|
 |技術書典|https://techbookfest.org/product/1VEBJHbmVmb8D6eFvcE5VF|
 |インプレス(追記あり) |https://nextpublishing.jp/book/17387.html|
 
